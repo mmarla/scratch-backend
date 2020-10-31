@@ -1,5 +1,5 @@
-import handler from "./libs/handler";
-import dynamoDb from "./libs/dynamodb";
+import handler from "../libs/handler";
+import dynamoDb from "../libs/dynamodb";
 
 export const main = handler(async (event, context) => {
   const { requestContext, pathParameters } = event;

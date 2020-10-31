@@ -1,6 +1,6 @@
 import * as uuid from "uuid";
-import handler from "./libs/handler";
-import dynamoDb from "./libs/dynamodb";
+import handler from "../libs/handler";
+import dynamoDb from "../libs/dynamodb";
 
 const lambda = async (event, _) => {
   const { content, attachment } = JSON.parse(event.body);
