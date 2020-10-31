@@ -9,7 +9,8 @@
     "test:create": "serverless invoke local --function create --path test/mocks/create-event.json",
     "test:list": "serverless invoke local --function list --path test/mocks/list-event.json",
     "test:update": "serverless invoke local --function update --path test/mocks/update-event.json",
-    "test:delete": "serverless invoke local --function delete --path test/mocks/delete-event.json"
+    "test:delete": "serverless invoke local --function delete --path test/mocks/delete-event.json",
+    "test:billing": "serverless invoke local --function billing --path test/mocks/billing-event.json"
   },
   "author": "",
   "license": "MIT",
@@ -24,6 +25,7 @@
     "serverless-offline": "^5.3.3"
   },
   "dependencies": {
+    "stripe": "^8.119.0",
     "uuid": "^7.0.3"
   }
 }
