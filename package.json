@@ -7,7 +7,8 @@
     "test": "serverless-bundle test",
     "test:get": "serverless invoke local --function get --path test/mocks/get-event.json",
     "test:create": "serverless invoke local --function create --path test/mocks/create-event.json",
-    "test:list": "serverless invoke local --function list --path test/mocks/list-event.json"
+    "test:list": "serverless invoke local --function list --path test/mocks/list-event.json",
+    "test:update": "serverless invoke local --function update --path test/mocks/update-event.json"
   },
   "author": "",
   "license": "MIT",
