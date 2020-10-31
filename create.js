@@ -1,33 +1,13 @@
 import * as uuid from "uuid";
-import AWS from "aws-sdk";
+import handler from "./libs/handler";
+import dynamoDb from "./libs/dynamodb";
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-const buildResponse = (statusCode, body) => ({
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Credentials": true,
-  },
-  statusCode,
-  body: JSON.stringify(body),
-});
-
-export const main = (
-  {
-    requestContext: {
-      identity: { cognitoIdentityId },
-    },
-    body,
-  },
-  _,
-  callback
-) => {
-  const { content, attachment } = JSON.parse(body);
-
+const lambda = async (event, _) => {
+  const { content, attachment } = JSON.parse(event.body);
   const params = {
     TableName: process.env.tableName,
     Item: {
-      userId: cognitoIdentityId,
+      userId: event.requestContext.identity.cognitoIdentityId,
       noteId: uuid.v1(),
       content,
       attachment,
@@ -35,11 +15,9 @@ export const main = (
     },
   };
 
-  dynamoDb.put(params, (error, _) => {
-    if (error) {
-      return callback(null, buildResponse(500, { status: false }));
-    }
+  await dynamoDb.put(params);
 
-    return callback(null, buildResponse(200, params.Item));
-  });
+  return params.Item;
 };
+
+export const main = handler(lambda);
